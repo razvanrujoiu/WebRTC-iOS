@@ -10,7 +10,7 @@
 		2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */; };
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
-		2FB029162335104700795F4B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB029152335104700795F4B /* Starscream */; };
+		2FB029162335104700795F4B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB029152335104700795F4B /* SwiftPackageProductDependency */; };
 		79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */; };
 		79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9820B0DF2700BCD399 /* SignalingClient.swift */; };
 		79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177CA520B1F76E00BCD399 /* RTCStates.swift */; };
@@ -25,16 +25,15 @@
 		795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A29221E0FB100F8BB03 /* Message.swift */; };
 		798FBA472200F681009F525E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA462200F681009F525E /* MainViewController.xib */; };
 		798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA482200F9A9009F525E /* LaunchScreen.storyboard */; };
-		A3736211ED520122E5DBF999 /* libPods-WebRTC-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F59EEC794858CDDF75D2F2 /* libPods-WebRTC-Demo.a */; };
+		D0D3FBD84D42CA75A3882667 /* libPods-WebRTC-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A93F7B410A1E16D16DB4 /* libPods-WebRTC-Demo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		27F59EEC794858CDDF75D2F2 /* libPods-WebRTC-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebRTC-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F327EBA6209267B26D6802D /* Pods-WebRTC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebRTC-Demo/Pods-WebRTC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		173DACF24E4581820CB721C0 /* Pods-WebRTC-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC-Demo.release.xcconfig"; path = "Target Support Files/Pods-WebRTC-Demo/Pods-WebRTC-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		2C99A93F7B410A1E16D16DB4 /* libPods-WebRTC-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebRTC-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
-		3511974734F2E9151ADAD1A8 /* Pods-WebRTC-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebRTC-Demo/Pods-WebRTC-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		79177C9820B0DF2700BCD399 /* SignalingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
 		79177CA520B1F76E00BCD399 /* RTCStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
@@ -51,9 +50,8 @@
 		795A4A29221E0FB100F8BB03 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		798FBA462200F681009F525E /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		798FBA482200F9A9009F525E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9ED93846F4CF300F5D5F104C /* Pods-WebRTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebRTC/Pods-WebRTC.debug.xcconfig"; sourceTree = "<group>"; };
-		A930FC9FB2A066EE0A3E2176 /* Pods-WebRTC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebRTC/Pods-WebRTC.release.xcconfig"; sourceTree = "<group>"; };
-		CA606D7CF8E980599582389C /* libPods-WebRTC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebRTC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E3FBEEC17F90E8734E82EBE /* Pods-WebRTC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WebRTC-Demo/Pods-WebRTC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		E391A7B724443621003CB4CE /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,25 +59,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3736211ED520122E5DBF999 /* libPods-WebRTC-Demo.a in Frameworks */,
-				2FB029162335104700795F4B /* Starscream in Frameworks */,
+				2FB029162335104700795F4B /* BuildFile in Frameworks */,
+				D0D3FBD84D42CA75A3882667 /* libPods-WebRTC-Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2686C41B2430436930E82391 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9ED93846F4CF300F5D5F104C /* Pods-WebRTC.debug.xcconfig */,
-				A930FC9FB2A066EE0A3E2176 /* Pods-WebRTC.release.xcconfig */,
-				2F327EBA6209267B26D6802D /* Pods-WebRTC-Demo.debug.xcconfig */,
-				3511974734F2E9151ADAD1A8 /* Pods-WebRTC-Demo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		2F7EBC3422DCC6300015B46E /* WebSocketProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,8 +129,8 @@
 				79177C9B20B0E84600BCD399 /* Resources */,
 				79177C9A20B0E82B00BCD399 /* SupportingFiles */,
 				79262EE420B0D6F600D576C1 /* Products */,
-				2686C41B2430436930E82391 /* Pods */,
-				CFB6FD6BADE7DD44D7F5D315 /* Frameworks */,
+				ECD3BC7E76AF56B9F00DF683 /* Pods */,
+				C2C63546C7F0C872B2F86716 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -187,13 +174,22 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		CFB6FD6BADE7DD44D7F5D315 /* Frameworks */ = {
+		C2C63546C7F0C872B2F86716 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CA606D7CF8E980599582389C /* libPods-WebRTC.a */,
-				27F59EEC794858CDDF75D2F2 /* libPods-WebRTC-Demo.a */,
+				E391A7B724443621003CB4CE /* WebRTC.framework */,
+				2C99A93F7B410A1E16D16DB4 /* libPods-WebRTC-Demo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECD3BC7E76AF56B9F00DF683 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7E3FBEEC17F90E8734E82EBE /* Pods-WebRTC-Demo.debug.xcconfig */,
+				173DACF24E4581820CB721C0 /* Pods-WebRTC-Demo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,11 +199,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79262EF520B0D6F800D576C1 /* Build configuration list for PBXNativeTarget "WebRTC-Demo" */;
 			buildPhases = (
-				8777D042E02FC866C98B7E95 /* [CP] Check Pods Manifest.lock */,
+				C786EDE1452C708B69A13307 /* [CP] Check Pods Manifest.lock */,
 				79262EDF20B0D6F600D576C1 /* Sources */,
 				79262EE020B0D6F600D576C1 /* Frameworks */,
 				79262EE120B0D6F600D576C1 /* Resources */,
-				24771E9787916B8FC19C8CA0 /* [CP] Embed Pods Frameworks */,
+				B1982B3C8EB922A0DDA63904 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -215,7 +211,7 @@
 			);
 			name = "WebRTC-Demo";
 			packageProductDependencies = (
-				2FB029152335104700795F4B /* Starscream */,
+				2FB029152335104700795F4B /* SwiftPackageProductDependency */,
 			);
 			productName = WebRTC;
 			productReference = 79262EE320B0D6F600D576C1 /* WebRTC-Demo.app */;
@@ -247,7 +243,7 @@
 			);
 			mainGroup = 79262EDA20B0D6F500D576C1;
 			packageReferences = (
-				2FB029142335104700795F4B /* XCRemoteSwiftPackageReference "Starscream" */,
+				2FB029142335104700795F4B /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 79262EE420B0D6F600D576C1 /* Products */;
 			projectDirPath = "";
@@ -273,7 +269,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		24771E9787916B8FC19C8CA0 /* [CP] Embed Pods Frameworks */ = {
+		B1982B3C8EB922A0DDA63904 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -290,16 +286,20 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WebRTC-Demo/Pods-WebRTC-Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8777D042E02FC866C98B7E95 /* [CP] Check Pods Manifest.lock */ = {
+		C786EDE1452C708B69A13307 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-WebRTC-Demo-checkManifestLockResult.txt",
 			);
@@ -454,18 +454,22 @@
 		};
 		79262EF620B0D6F800D576C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F327EBA6209267B26D6802D /* Pods-WebRTC-Demo.debug.xcconfig */;
+			baseConfigurationReference = 7E3FBEEC17F90E8734E82EBE /* Pods-WebRTC-Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J5HXNWPVL8;
+				DEVELOPMENT_TEAM = AQQK2GDY6C;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.stasel.WebRTC;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rzv.WebRTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -476,18 +480,22 @@
 		};
 		79262EF720B0D6F800D576C1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3511974734F2E9151ADAD1A8 /* Pods-WebRTC-Demo.release.xcconfig */;
+			baseConfigurationReference = 173DACF24E4581820CB721C0 /* Pods-WebRTC-Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J5HXNWPVL8;
+				DEVELOPMENT_TEAM = AQQK2GDY6C;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.stasel.WebRTC;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rzv.WebRTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -519,7 +527,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2FB029142335104700795F4B /* XCRemoteSwiftPackageReference "Starscream" */ = {
+		2FB029142335104700795F4B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:daltoniam/Starscream.git";
 			requirement = {
@@ -530,9 +538,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2FB029152335104700795F4B /* Starscream */ = {
+		2FB029152335104700795F4B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2FB029142335104700795F4B /* XCRemoteSwiftPackageReference "Starscream" */;
+			package = 2FB029142335104700795F4B /* RemoteSwiftPackageReference */;
 			productName = Starscream;
 		};
 /* End XCSwiftPackageProductDependency section */
