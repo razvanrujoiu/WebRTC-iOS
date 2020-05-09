@@ -46,6 +46,7 @@ class VideoViewController: UIViewController {
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer, position: position)
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
         
+        // TODO find a way to refactor this, the views are stacking
         
         if let localVideoView = self.localVideoView {
             self.embedView(localRenderer, into: localVideoView)
