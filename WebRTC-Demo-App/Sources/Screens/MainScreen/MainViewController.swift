@@ -9,6 +9,9 @@
 import UIKit
 import AVFoundation
 import WebRTC
+import CocoaMQTT
+import CocoaAsyncSocket
+import PromiseKit
 
 class MainViewController: UIViewController {
 
@@ -24,6 +27,8 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var remoteCandidatesLabel: UILabel?
     @IBOutlet private weak var muteButton: UIButton?
     @IBOutlet private weak var webRTCStatusLabel: UILabel?
+    
+    var mqtt: CocoaMQTT!
     
     private var signalingConnected: Bool = false {
         didSet {
@@ -99,7 +104,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "WebRTC Demo"
         self.signalingConnected = false
         self.hasLocalSdp = false
         self.hasRemoteSdp = false
@@ -110,20 +114,57 @@ class MainViewController: UIViewController {
         
         self.webRTCClient.delegate = self
         self.signalClient.delegate = self
-        self.signalClient.connect()
+//        self.signalClient.connect()
+        self.setupMqtt()
     }
+    
+    func setupMqtt() {
+        let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
+        mqtt = CocoaMQTT(clientID: clientID, host: "test.mosquitto.org", port: 1883)
+        mqtt.logLevel = .debug
+        mqtt!.keepAlive = 60
+        mqtt.allowUntrustCACertificate = true
+        mqtt!.delegate = self
+        mqttConnect()
+    }
+    
+    @objc
+    func mqttConnect() {
+        _ = mqtt!.connect()
+    }
+    
+
     
     @IBAction private func offerDidTap(_ sender: UIButton) {
         self.webRTCClient.offer { (sdp) in
             self.hasLocalSdp = true
-            self.signalClient.send(sdp: sdp)
+            let message = Message.sdp(SessionDescription(from: sdp))
+            do {
+                let encodedMessage = try JSONEncoder().encode(message)
+                let sdpByteArr = [UInt8](encodedMessage)
+                let cocoaMqttMessage = CocoaMQTTMessage(topic: "/ios/topic-rzv/pub", payload: sdpByteArr)
+                self.mqtt.publish(cocoaMqttMessage)
+            } catch {
+                 debugPrint("Warning: Could not encode sdp: \(error)")
+            }
+//            self.signalClient.send(sdp: sdp)
+            
         }
     }
     
     @IBAction private func answerDidTap(_ sender: UIButton) {
         self.webRTCClient.answer { (localSdp) in
             self.hasLocalSdp = true
-            self.signalClient.send(sdp: localSdp)
+            let message = Message.sdp(SessionDescription(from: localSdp))
+            do {
+                let encodedMessage = try JSONEncoder().encode(message)
+                let sdpByteArr = [UInt8](encodedMessage)
+                let cocoaMqttMessage = CocoaMQTTMessage(topic: "/ios/topic-rzv/sub", payload: sdpByteArr)
+                self.mqtt.publish(cocoaMqttMessage)
+            } catch {
+                 debugPrint("Warning: Could not encode sdp: \(error)")
+            }
+//            self.signalClient.send(sdp: localSdp)
         }
     }
     
@@ -167,6 +208,7 @@ class MainViewController: UIViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+   
 }
 
 extension MainViewController: SignalClientDelegate {
@@ -230,3 +272,74 @@ extension MainViewController: WebRTCClientDelegate {
     }
 }
 
+extension MainViewController: CocoaMQTTDelegate {
+    
+    func mqttDidPing(_ mqtt: CocoaMQTT) {
+        print("💚 mqtt did ping")
+    }
+    
+    func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
+        print("💚 mqtt did receive ping")
+    }
+    
+    func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
+        print("💚 mqtt did disconnect: \(err!.localizedDescription)")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            self.mqttConnect()
+        }
+       
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
+        print("💚 mqtt did connect ack: \(ack.description)")
+        if ack == .accept {
+//            mqtt.publish("/ios/topic-rzv", withString: "hello")
+            mqtt.subscribe("/ios/topic-rzv/pub", qos: .qos1)
+        }
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
+        
+        print("💚 Did publish message: \(message.string!)")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
+        print("💚 Did publish ack: \(id)")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
+        print("💚 Did receive message: \(message.string!)")
+        
+        let decodedMessage: Message
+        let encodedMessage = message.string!.data(using: .utf8)
+        do {
+            decodedMessage = try JSONDecoder().decode(Message.self, from: encodedMessage!)
+        } catch {
+            debugPrint("❤️ Could not decode incoming message: \(error)")
+            return
+        }
+        
+        switch  decodedMessage {
+        case .candidate(let iceCandidate):
+            print("Received remote candidate")
+            self.remoteCandidateCount += 1
+            self.webRTCClient.set(remoteCandidate: iceCandidate.rtcIceCandidate)
+        case .sdp(let sessionDescription):
+            print("Received remote sdp")
+            self.webRTCClient.set(remoteSdp: sessionDescription.rtcSessionDescription) { (error) in
+                self.hasRemoteSdp = true
+            }
+        }
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {
+        print("💚 Did subscribe topics: \(topics.joined(separator: ","))")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
+        print("💚 Did unsubscribe topic: \(topic)")
+    }
+    
+    
+}

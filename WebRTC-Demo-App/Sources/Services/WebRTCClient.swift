@@ -100,14 +100,16 @@ final class WebRTCClient: NSObject {
         self.peerConnection.add(remoteCandidate)
     }
     
+    
+    
     // MARK: Media
-    func startCaptureLocalVideo(renderer: RTCVideoRenderer) {
+    func startCaptureLocalVideo(renderer: RTCVideoRenderer, position: AVCaptureDevice.Position) {
         guard let capturer = self.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
 
         guard
-            let frontCamera = (RTCCameraVideoCapturer.captureDevices().first { $0.position == .front }),
+            let frontCamera = (RTCCameraVideoCapturer.captureDevices().first { $0.position == position }),
         
             // choose highest res
             let format = (RTCCameraVideoCapturer.supportedFormats(for: frontCamera).sorted { (f1, f2) -> Bool in

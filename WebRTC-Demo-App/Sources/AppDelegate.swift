@@ -5,7 +5,7 @@
 //  Created by Stasel on 20/05/2018.
 //  Copyright © 2018 Stasel. All rights reserved.
 //
-
+import netfox
 import UIKit
 
 @UIApplicationMain
@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = self.buildMainViewController()
         window.makeKeyAndVisible()
         self.window = window
+        NFX.sharedInstance().start()
         return true
     }
     
