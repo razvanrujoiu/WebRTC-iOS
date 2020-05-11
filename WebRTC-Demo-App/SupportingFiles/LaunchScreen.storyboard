@@ -15,22 +15,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Liv3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfo-aC-SFe">
-                                <rect key="frame" x="22" y="262" width="276" height="44"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Hgp-wM-mKo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Liv3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nH2-9m-B0j">
+                                <rect key="frame" x="111" y="262" width="98.5" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="NPJ-xD-Itb"/>
+                                    <constraint firstAttribute="height" constant="44" id="iAu-lB-qAf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <color key="textColor" red="0.87450980392156863" green="0.48619866977293835" blue="0.093304747008121636" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="pfo-aC-SFe" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Dek-1f-Yrd"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pfo-aC-SFe" secondAttribute="trailing" constant="22" id="GQl-8D-Qka"/>
-                            <constraint firstItem="pfo-aC-SFe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="22" id="Zrk-AX-qnT"/>
-                            <constraint firstItem="pfo-aC-SFe" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="aYq-nt-nRe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hgp-wM-mKo" secondAttribute="trailing" id="CsI-mZ-xLs"/>
+                            <constraint firstAttribute="bottom" secondItem="Hgp-wM-mKo" secondAttribute="bottom" id="Dm1-20-JHa"/>
+                            <constraint firstItem="Hgp-wM-mKo" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Y1c-Ub-9Lu"/>
+                            <constraint firstItem="Hgp-wM-mKo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="i2c-CI-irM"/>
+                            <constraint firstItem="nH2-9m-B0j" firstAttribute="centerY" secondItem="Hgp-wM-mKo" secondAttribute="centerY" id="qMU-xy-Pch"/>
+                            <constraint firstItem="nH2-9m-B0j" firstAttribute="centerX" secondItem="Hgp-wM-mKo" secondAttribute="centerX" id="zrs-7P-KEs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -40,4 +45,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="621" height="1344"/>
+    </resources>
 </document>

@@ -7,5 +7,6 @@ target 'WebRTC-Demo' do
     pod "PromiseKit", "~> 6.8"
     pod 'CocoaMQTT' 
     pod 'GoogleWebRTC'
+    pod 'PKHUD'
     pod 'CocoaAsyncSocket'
 end

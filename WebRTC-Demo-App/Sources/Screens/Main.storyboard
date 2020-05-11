@@ -15,16 +15,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLw-7A-0IQ">
-                                <rect key="frame" x="188" y="479" width="38" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-Yf-IhC">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pqo-Uo-ocM">
+                                <rect key="frame" x="22" y="774" width="370" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Lzn-18-AEa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
-                                    <action selector="loginBtnPressed:" destination="eFs-My-g0S" eventType="touchUpInside" id="VKq-Xt-bjJ"/>
+                                    <action selector="loginBtnPressed:" destination="eFs-My-g0S" eventType="touchUpInside" id="JQo-0D-hPx"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="xeX-1l-hTf" firstAttribute="bottom" secondItem="pqo-Uo-ocM" secondAttribute="bottom" constant="44" id="62E-Qy-DfO"/>
+                            <constraint firstItem="xeX-1l-hTf" firstAttribute="trailing" secondItem="rKI-Yf-IhC" secondAttribute="trailing" id="8hz-6S-ON8"/>
+                            <constraint firstAttribute="bottom" secondItem="rKI-Yf-IhC" secondAttribute="bottom" id="CMu-rg-ny0"/>
+                            <constraint firstItem="pqo-Uo-ocM" firstAttribute="centerX" secondItem="rKI-Yf-IhC" secondAttribute="centerX" id="EzS-eJ-3Kg"/>
+                            <constraint firstItem="rKI-Yf-IhC" firstAttribute="width" secondItem="xeX-1l-hTf" secondAttribute="width" id="J2Y-eq-PQQ"/>
+                            <constraint firstItem="rKI-Yf-IhC" firstAttribute="trailing" secondItem="xeX-1l-hTf" secondAttribute="trailing" id="KjR-O5-Vtf"/>
+                            <constraint firstItem="rKI-Yf-IhC" firstAttribute="top" secondItem="Zyo-dq-LNq" secondAttribute="top" id="ZgX-D3-Mak"/>
+                            <constraint firstItem="rKI-Yf-IhC" firstAttribute="leading" secondItem="xeX-1l-hTf" secondAttribute="leading" id="nAC-hf-5Oz"/>
+                            <constraint firstItem="xeX-1l-hTf" firstAttribute="trailing" secondItem="pqo-Uo-ocM" secondAttribute="trailing" constant="22" id="oXY-EN-bqv"/>
+                            <constraint firstItem="rKI-Yf-IhC" firstAttribute="leading" secondItem="xeX-1l-hTf" secondAttribute="leading" id="peL-6g-L73"/>
+                            <constraint firstItem="pqo-Uo-ocM" firstAttribute="leading" secondItem="xeX-1l-hTf" secondAttribute="leading" constant="22" id="xTF-vN-5cf"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="xeX-1l-hTf"/>
                     </view>
                     <connections>
@@ -33,7 +55,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U2n-md-I9X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="36" y="194"/>
+            <point key="canvasLocation" x="34.782608695652179" y="193.52678571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="621" height="1344"/>
+    </resources>
 </document>
