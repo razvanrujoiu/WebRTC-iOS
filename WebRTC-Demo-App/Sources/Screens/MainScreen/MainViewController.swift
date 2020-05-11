@@ -11,7 +11,7 @@ import AVFoundation
 import WebRTC
 import CocoaMQTT
 import CocoaAsyncSocket
-import PromiseKit
+import CallKit
 
 class MainViewController: UIViewController {
 
@@ -91,7 +91,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    init(signalClient: SignalingClient, webRTCClient: WebRTCClient) {
+    init(webRTCClient: WebRTCClient) {
 //        self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         super.init(nibName: String(describing: MainViewController.self), bundle: Bundle.main)
@@ -104,6 +104,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         self.signalingConnected = false
         self.hasLocalSdp = false
         self.hasRemoteSdp = false
@@ -137,7 +138,7 @@ class MainViewController: UIViewController {
         self.webRTCClient.offer { (sdp) in
             self.hasLocalSdp = true
             let message = Message.sdp(SessionDescription(from: sdp))
-            self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/pub")
+            self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/peer2")
 //            self.signalClient.send(sdp: sdp)
             
         }
@@ -147,7 +148,7 @@ class MainViewController: UIViewController {
         self.webRTCClient.answer { (localSdp) in
             self.hasLocalSdp = true
             let message = Message.sdp(SessionDescription(from: localSdp))
-            self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/sub")
+            self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/peer2")
 //            self.signalClient.send(sdp: localSdp)
         }
     }
@@ -234,7 +235,7 @@ extension MainViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
         let message = Message.candidate(IceCandidate(from: candidate))
-        self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/sub")
+        self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/peer2")
 //        self.localCandidateCount += 1
 //        self.signalClient.send(candidate: candidate)
         
@@ -292,8 +293,7 @@ extension MainViewController: CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         print("💚 mqtt did connect ack: \(ack.description)")
         if ack == .accept {
-//            mqtt.publish("/ios/topic-rzv", withString: "hello")
-            mqtt.subscribe("/ios/topic-rzv/pub", qos: .qos1)
+            mqtt.subscribe("/ios/topic-rzv/peer1", qos: .qos1)
         }
     }
     

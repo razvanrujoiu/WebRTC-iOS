@@ -26,6 +26,8 @@
 		798FBA472200F681009F525E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA462200F681009F525E /* MainViewController.xib */; };
 		798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA482200F9A9009F525E /* LaunchScreen.storyboard */; };
 		D0D3FBD84D42CA75A3882667 /* libPods-WebRTC-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A93F7B410A1E16D16DB4 /* libPods-WebRTC-Demo.a */; };
+		E3E10AF22468A200009A6CE6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E10AF12468A200009A6CE6 /* LoginController.swift */; };
+		E3E10AF42468A39F009A6CE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3E10AF32468A39F009A6CE6 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		798FBA482200F9A9009F525E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E3FBEEC17F90E8734E82EBE /* Pods-WebRTC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WebRTC-Demo/Pods-WebRTC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		E391A7B724443621003CB4CE /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
+		E3E10AF12468A200009A6CE6 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		E3E10AF32468A39F009A6CE6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,8 +161,10 @@
 		798FBA442200F510009F525E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E3E10AEE24683637009A6CE6 /* Auth */,
 				7921989F220107C90051F03F /* MainScreen */,
 				792198A0220107E30051F03F /* VideoScreen */,
+				E3E10AF32468A39F009A6CE6 /* Main.storyboard */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -181,6 +187,14 @@
 				2C99A93F7B410A1E16D16DB4 /* libPods-WebRTC-Demo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E3E10AEE24683637009A6CE6 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E3E10AF12468A200009A6CE6 /* LoginController.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		ECD3BC7E76AF56B9F00DF683 /* Pods */ = {
@@ -260,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
+				E3E10AF42468A39F009A6CE6 /* Main.storyboard in Resources */,
 				798FBA472200F681009F525E /* MainViewController.xib in Resources */,
 				79177CAA20B2283F00BCD399 /* VideoViewController.xib in Resources */,
 				798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */,
@@ -328,6 +343,7 @@
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
 				2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */,
+				E3E10AF22468A200009A6CE6 /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +481,7 @@
 					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -491,6 +508,7 @@
 					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
