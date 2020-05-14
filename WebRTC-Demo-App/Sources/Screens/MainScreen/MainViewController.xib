@@ -85,32 +85,25 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="5YA-En-ia1">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="5YA-En-ia1">
                     <rect key="frame" x="22" y="368.5" width="331" height="44"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gZ-Ix-Nf9">
-                            <rect key="frame" x="0.0" y="0.0" width="48" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gZ-Ix-Nf9">
+                            <rect key="frame" x="0.0" y="0.0" width="55.5" height="44"/>
                             <state key="normal" title="Mute"/>
                             <connections>
                                 <action selector="muteDidTap:" destination="-1" eventType="touchUpInside" id="SPc-VL-QPg"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3A-iF-y59">
-                            <rect key="frame" x="87" y="0.0" width="56" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3A-iF-y59">
+                            <rect key="frame" x="94.5" y="0.0" width="88.5" height="44"/>
                             <state key="normal" title="Speaker"/>
                             <connections>
                                 <action selector="speakerDidTap:" destination="-1" eventType="touchUpInside" id="sar-D8-lYV"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rst-gF-abW">
-                            <rect key="frame" x="182" y="0.0" width="70" height="30"/>
-                            <state key="normal" title="Send data"/>
-                            <connections>
-                                <action selector="sendDataDidTap:" destination="-1" eventType="touchUpInside" id="2hT-yS-Fws"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibb-KE-sVk">
-                            <rect key="frame" x="291" y="0.0" width="40" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibb-KE-sVk">
+                            <rect key="frame" x="222" y="0.0" width="109" height="44"/>
                             <state key="normal" title="Video"/>
                             <connections>
                                 <action selector="videoDidTap:" destination="-1" eventType="touchUpInside" id="eIQ-IA-2Mp"/>
@@ -121,8 +114,51 @@
                         <constraint firstAttribute="height" constant="44" id="Mbf-6v-5dP"/>
                     </constraints>
                 </stackView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zLO-od-T8b">
+                    <rect key="frame" x="22" y="170.5" width="331" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="ame-6N-SFj"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Phone number"/>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="ZX6-nd-7Zi">
+                    <rect key="frame" x="22" y="412.5" width="331" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rst-gF-abW">
+                            <rect key="frame" x="0.0" y="0.0" width="82" height="44"/>
+                            <state key="normal" title="Send data"/>
+                            <connections>
+                                <action selector="sendDataDidTap:" destination="-1" eventType="touchUpInside" id="2hT-yS-Fws"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9w-4l-gVO">
+                            <rect key="frame" x="137" y="0.0" width="63.5" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="aDX-tZ-8cT"/>
+                            </constraints>
+                            <state key="normal" title="End call"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMk-5o-rLR">
+                            <rect key="frame" x="255.5" y="0.0" width="75.5" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="w9b-sP-Vy8"/>
+                            </constraints>
+                            <state key="normal" title="Logout"/>
+                            <connections>
+                                <action selector="didTapLogoutBtn:" destination="-1" eventType="touchUpInside" id="WpR-AV-c3u"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="bv6-rC-qGl"/>
+                    </constraints>
+                </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="fcb-Eu-Osr">
-                    <rect key="frame" x="22" y="434.5" width="331" height="44"/>
+                    <rect key="frame" x="22" y="478.5" width="331" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4A-b9-XWx">
                             <rect key="frame" x="0.0" y="0.0" width="150.5" height="44"/>
@@ -141,47 +177,29 @@
                         <constraint firstAttribute="height" constant="44" id="H9l-Ls-iHQ"/>
                     </constraints>
                 </stackView>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zLO-od-T8b" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                    <rect key="frame" x="22" y="170.5" width="331" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="ame-6N-SFj"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Phone number"/>
-                    </userDefinedRuntimeAttributes>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMk-5o-rLR">
-                    <rect key="frame" x="22" y="601" width="331" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="w9b-sP-Vy8"/>
-                    </constraints>
-                    <state key="normal" title="Logout"/>
-                </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="2vW-Ad-Yxa" firstAttribute="leading" secondItem="tfj-wv-USl" secondAttribute="trailing" constant="10" id="0zE-TC-W3C"/>
-                <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="FMk-5o-rLR" secondAttribute="trailing" constant="22" id="1YY-c4-Z6V"/>
                 <constraint firstItem="zLO-od-T8b" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="22" id="1uP-Qt-RvC"/>
                 <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="xPu-fe-sIe" secondAttribute="trailing" constant="22" id="3cJ-S3-qhH"/>
                 <constraint firstItem="qlz-7Z-2U3" firstAttribute="top" secondItem="tfj-wv-USl" secondAttribute="bottom" constant="20" id="3o2-4A-Qqj"/>
                 <constraint firstItem="vnU-tf-1SZ" firstAttribute="leading" secondItem="ZBg-a1-eEf" secondAttribute="trailing" constant="10" id="7IE-ED-ijg"/>
                 <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="zLO-od-T8b" secondAttribute="trailing" constant="22" id="B9t-Eb-mbb"/>
-                <constraint firstItem="fcb-Eu-Osr" firstAttribute="top" secondItem="5YA-En-ia1" secondAttribute="bottom" constant="22" id="Dik-16-YvJ"/>
                 <constraint firstItem="5YA-En-ia1" firstAttribute="top" secondItem="Iv3-su-6Ge" secondAttribute="bottom" constant="22" id="Dmu-AN-5uX"/>
                 <constraint firstItem="yay-HM-9I3" firstAttribute="leading" secondItem="qlz-7Z-2U3" secondAttribute="trailing" constant="10" id="DxR-0Z-9BP"/>
+                <constraint firstItem="ZX6-nd-7Zi" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="22" id="G8n-tF-6Yl"/>
                 <constraint firstItem="2vW-Ad-Yxa" firstAttribute="centerY" secondItem="tfj-wv-USl" secondAttribute="centerY" id="Gxp-g5-hcH"/>
-                <constraint firstItem="ltd-4m-UTj" firstAttribute="bottom" secondItem="FMk-5o-rLR" secondAttribute="bottom" constant="22" id="KEQ-EF-PI4"/>
                 <constraint firstItem="tfj-wv-USl" firstAttribute="top" secondItem="ltd-4m-UTj" secondAttribute="top" constant="25" id="LA6-kX-UVc"/>
                 <constraint firstItem="qlz-7Z-2U3" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="20" id="LAn-D4-PfI"/>
                 <constraint firstItem="yay-HM-9I3" firstAttribute="centerY" secondItem="qlz-7Z-2U3" secondAttribute="centerY" id="MkN-QB-jIC"/>
                 <constraint firstItem="xPu-fe-sIe" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="22" id="RgV-0A-uKs"/>
                 <constraint firstItem="vnU-tf-1SZ" firstAttribute="centerY" secondItem="ZBg-a1-eEf" secondAttribute="centerY" id="TZj-3P-Mdt"/>
+                <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="ZX6-nd-7Zi" secondAttribute="trailing" constant="22" id="Ubb-Wj-eYi"/>
                 <constraint firstItem="Iv3-su-6Ge" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="22" id="Xcj-bl-29Y"/>
                 <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="5YA-En-ia1" secondAttribute="trailing" constant="22" id="ZjM-yI-5ud"/>
-                <constraint firstItem="FMk-5o-rLR" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="22" id="aUD-xV-9ek"/>
+                <constraint firstItem="fcb-Eu-Osr" firstAttribute="top" secondItem="ZX6-nd-7Zi" secondAttribute="bottom" constant="22" id="c2I-eI-1rP"/>
+                <constraint firstItem="ZX6-nd-7Zi" firstAttribute="top" secondItem="5YA-En-ia1" secondAttribute="bottom" id="dyH-vR-ht5"/>
                 <constraint firstItem="Iv3-su-6Ge" firstAttribute="top" secondItem="xPu-fe-sIe" secondAttribute="bottom" constant="22" id="h5R-IQ-PXP"/>
                 <constraint firstItem="xPu-fe-sIe" firstAttribute="top" secondItem="zLO-od-T8b" secondAttribute="bottom" constant="22" id="i1A-pl-mP7"/>
                 <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="Iv3-su-6Ge" secondAttribute="trailing" constant="22" id="kQg-m3-EHy"/>

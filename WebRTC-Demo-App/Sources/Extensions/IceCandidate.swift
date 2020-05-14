@@ -14,8 +14,10 @@ struct IceCandidate: Codable {
     let sdp: String
     let sdpMLineIndex: Int32
     let sdpMid: String?
+    var srcPhoneNumber: String?
     
     init(from iceCandidate: RTCIceCandidate) {
+        // TODO pass srcPhoneNumber in constructor
         self.sdpMLineIndex = iceCandidate.sdpMLineIndex
         self.sdpMid = iceCandidate.sdpMid
         self.sdp = iceCandidate.sdp

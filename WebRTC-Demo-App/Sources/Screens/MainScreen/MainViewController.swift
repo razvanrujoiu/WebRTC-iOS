@@ -12,12 +12,12 @@ import WebRTC
 import CocoaMQTT
 import CocoaAsyncSocket
 import CallKit
-import SkyFloatingLabelTextField
 
 class MainViewController: UIViewController {
 
 //    private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
+    private var remotePhoneNumber: String?
     private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient)
     
     @IBOutlet private weak var speakerButton: UIButton?
@@ -30,7 +30,7 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var webRTCStatusLabel: UILabel?
     
     @IBOutlet weak var conversationOptionsStackView: UIStackView!
-    @IBOutlet weak var phoneNumberTextField: SkyFloatingLabelTextFieldWithIcon!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
     var mqtt: CocoaMQTT!
     
     private var signalingConnected: Bool = false {
@@ -113,7 +113,7 @@ class MainViewController: UIViewController {
         self.hasRemoteSdp = false
         self.speakerOn = false
         self.webRTCStatusLabel?.text = "New"
-        self.conversationOptionsStackView.isHidden = true
+        self.conversationOptionsStackView.isHidden = false
         self.webRTCClient.delegate = self
 //        self.signalClient.delegate = self
 //        self.signalClient.connect()
@@ -138,20 +138,33 @@ class MainViewController: UIViewController {
 
     
     @IBAction private func offerDidTap(_ sender: UIButton) {
+        
+        guard let phoneNumber = phoneNumberTextField.text, RUtility.isValidPhone(phone: phoneNumber) else {
+            return
+        }
+        self.remotePhoneNumber = phoneNumber
+        
         self.webRTCClient.offer { (sdp) in
+            
             self.hasLocalSdp = true
-            let message = Message.sdp(SessionDescription(from: sdp))
-            self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/peer2")
+            var sessionDescription = SessionDescription(from: sdp)
+            sessionDescription.srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+            let message = Message.sdp(sessionDescription)
+            
+            self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
 //            self.signalClient.send(sdp: sdp)
             
         }
     }
     
     @IBAction private func answerDidTap(_ sender: UIButton) {
+        
         self.webRTCClient.answer { (localSdp) in
             self.hasLocalSdp = true
-            let message = Message.sdp(SessionDescription(from: localSdp))
-            self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/peer2")
+            var sessionDescription = wSessionDescription(from: localSdp)
+            sessionDescription.srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+            let message = Message.sdp(sessionDescription)
+            self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
 //            self.signalClient.send(sdp: localSdp)
         }
     }
@@ -200,7 +213,7 @@ class MainViewController: UIViewController {
     
     private func encodeMessageAndPublishMqtt(message: Message, topic: String) {
         do {
-            
+//            let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
             let encodedMessage = try JSONEncoder().encode(message)
             let sdpByteArr = [UInt8](encodedMessage)
             let cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: sdpByteArr)
@@ -209,37 +222,23 @@ class MainViewController: UIViewController {
              debugPrint("Warning: Could not encode sdp: \(error)")
         }
     }
+    
+    @IBAction func didTapLogoutBtn(_ sender: UIButton) {
+        UserDefaults.standard.removeObject(forKey: "phoneNumber")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
-//extension MainViewController: SignalClientDelegate {
-//    func signalClientDidConnect(_ signalClient: SignalingClient) {
-//        self.signalingConnected = true
-//    }
-//
-//    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
-//        self.signalingConnected = false
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
-//        print("Received remote sdp")
-//        self.webRTCClient.set(remoteSdp: sdp) { (error) in
-//            self.hasRemoteSdp = true
-//        }
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
-//        print("Received remote candidate")
-////        self.remoteCandidateCount += 1
-//        self.webRTCClient.set(remoteCandidate: candidate)
-//    }
-//}
 
 extension MainViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
-        let message = Message.candidate(IceCandidate(from: candidate))
-        self.encodeMessageAndPublishMqtt(message: message, topic: "/ios/topic-rzv/peer2")
+        var iceCandidate = IceCandidate(from: candidate)
+        iceCandidate.srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+        let message = Message.candidate(iceCandidate)
+        self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
 //        self.localCandidateCount += 1
 //        self.signalClient.send(candidate: candidate)
         
@@ -250,7 +249,6 @@ extension MainViewController: WebRTCClientDelegate {
         switch state {
         case .connected, .completed:
             textColor = .green
-            self.conversationOptionsStackView.isHidden = false
         case .disconnected:
             textColor = .orange
         case .failed, .closed:
@@ -299,7 +297,7 @@ extension MainViewController: CocoaMQTTDelegate {
         print("💚 mqtt did connect ack: \(ack.description)")
         if ack == .accept {
             let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
-            let topicName = "/ios/\(phoneNumber!)"
+            let topicName = "/\(phoneNumber!)"
             mqtt.subscribe(topicName, qos: .qos1)
         }
     }
@@ -324,13 +322,15 @@ extension MainViewController: CocoaMQTTDelegate {
             debugPrint("❤️ Could not decode incoming message: \(error)")
             return
         }
-        
+    
         switch  decodedMessage {
         case .candidate(let iceCandidate):
             print("Received remote candidate")
+            self.remotePhoneNumber = iceCandidate.srcPhoneNumber!
             self.webRTCClient.set(remoteCandidate: iceCandidate.rtcIceCandidate)
         case .sdp(let sessionDescription):
             print("Received remote sdp")
+            self.remotePhoneNumber = sessionDescription.srcPhoneNumber!
             self.webRTCClient.set(remoteSdp: sessionDescription.rtcSessionDescription) { (error) in
                 self.hasRemoteSdp = true
             }
@@ -347,3 +347,26 @@ extension MainViewController: CocoaMQTTDelegate {
     
     
 }
+
+//extension MainViewController: SignalClientDelegate {
+//    func signalClientDidConnect(_ signalClient: SignalingClient) {
+//        self.signalingConnected = true
+//    }
+//
+//    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
+//        self.signalingConnected = false
+//    }
+//
+//    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
+//        print("Received remote sdp")
+//        self.webRTCClient.set(remoteSdp: sdp) { (error) in
+//            self.hasRemoteSdp = true
+//        }
+//    }
+//
+//    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+//        print("Received remote candidate")
+////        self.remoteCandidateCount += 1
+//        self.webRTCClient.set(remoteCandidate: candidate)
+//    }
+//}

@@ -27,6 +27,7 @@
 		C4124C0EC165DC97E29263DE /* libPods-Liv3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7B7D3A8E5006EE48677A55 /* libPods-Liv3.a */; };
 		E3E10AF22468A200009A6CE6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E10AF12468A200009A6CE6 /* LoginController.swift */; };
 		E3E10AF42468A39F009A6CE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3E10AF32468A39F009A6CE6 /* Main.storyboard */; };
+		E3E794B5246CCE5A00F5C1AD /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E794B4246CCE5A00F5C1AD /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		E3E10AF12468A200009A6CE6 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		E3E10AF32468A39F009A6CE6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E3E794B2246AB8FC00F5C1AD /* Liv3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Liv3.entitlements; sourceTree = "<group>"; };
+		E3E794B4246CCE5A00F5C1AD /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		798FBA422200F3B1009F525E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E3E794B3246CCE4400F5C1AD /* Utilities */,
 				798FBA452200F519009F525E /* Services */,
 				798FBA442200F510009F525E /* Screens */,
 				79177CA420B1C39700BCD399 /* Extensions */,
@@ -197,6 +200,14 @@
 				E3E10AF12468A200009A6CE6 /* LoginController.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		E3E794B3246CCE4400F5C1AD /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E3E794B4246CCE5A00F5C1AD /* Utils.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		ECD3BC7E76AF56B9F00DF683 /* Pods */ = {
@@ -356,6 +367,7 @@
 				79177CA820B2276400BCD399 /* VideoViewController.swift in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
+				E3E794B5246CCE5A00F5C1AD /* Utils.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,

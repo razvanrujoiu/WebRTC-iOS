@@ -22,7 +22,7 @@ class LoginController: UIViewController {
     }
     
     @IBAction func loginBtnPressed(_ sender: UIButton) {
-        guard let phoneNumber = phoneNumberTxtField.text, isValidPhone(phone: phoneNumber) else {
+        guard let phoneNumber = phoneNumberTxtField.text, RUtility.isValidPhone(phone: phoneNumber) else {
             phoneNumberTxtField.errorMessage = "Invalid phone number"
             return
         }
@@ -56,9 +56,5 @@ class LoginController: UIViewController {
           return SignalingClient(webSocket: webSocketProvider)
       }
 
-    func isValidPhone(phone: String) -> Bool {
-            let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
-            let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
-            return phoneTest.evaluate(with: phone)
-    }
+   
 }
