@@ -1,12 +1,14 @@
 source 'https://cdn.cocoapods.org/'
 platform :ios, '10.0'
 use_modular_headers!
-target 'WebRTC-Demo' do
+target 'Liv3' do
     pod 'netfox'
     pod 'Alamofire'
     pod "PromiseKit", "~> 6.8"
     pod 'CocoaMQTT' 
     pod 'GoogleWebRTC'
     pod 'PKHUD'
+    pod 'SkyFloatingLabelTextField', '~> 3.0'
+    pod 'IQKeyboardManagerSwift'
     pod 'CocoaAsyncSocket'
 end

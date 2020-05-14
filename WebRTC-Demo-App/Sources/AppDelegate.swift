@@ -7,6 +7,7 @@
 //
 import netfox
 import UIKit
+import IQKeyboardManagerSwift
 
 
 @UIApplicationMain
@@ -23,8 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
         
-        
+        IQKeyboardManager.shared.enable = true
         NFX.sharedInstance().start()
+        
         return true
     }
     

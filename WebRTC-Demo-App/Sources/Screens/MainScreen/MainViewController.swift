@@ -12,6 +12,7 @@ import WebRTC
 import CocoaMQTT
 import CocoaAsyncSocket
 import CallKit
+import SkyFloatingLabelTextField
 
 class MainViewController: UIViewController {
 
@@ -28,6 +29,8 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var muteButton: UIButton?
     @IBOutlet private weak var webRTCStatusLabel: UILabel?
     
+    @IBOutlet weak var conversationOptionsStackView: UIStackView!
+    @IBOutlet weak var phoneNumberTextField: SkyFloatingLabelTextFieldWithIcon!
     var mqtt: CocoaMQTT!
     
     private var signalingConnected: Bool = false {
@@ -110,7 +113,7 @@ class MainViewController: UIViewController {
         self.hasRemoteSdp = false
         self.speakerOn = false
         self.webRTCStatusLabel?.text = "New"
-        
+        self.conversationOptionsStackView.isHidden = true
         self.webRTCClient.delegate = self
 //        self.signalClient.delegate = self
 //        self.signalClient.connect()
@@ -197,6 +200,7 @@ class MainViewController: UIViewController {
     
     private func encodeMessageAndPublishMqtt(message: Message, topic: String) {
         do {
+            
             let encodedMessage = try JSONEncoder().encode(message)
             let sdpByteArr = [UInt8](encodedMessage)
             let cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: sdpByteArr)
@@ -246,6 +250,7 @@ extension MainViewController: WebRTCClientDelegate {
         switch state {
         case .connected, .completed:
             textColor = .green
+            self.conversationOptionsStackView.isHidden = false
         case .disconnected:
             textColor = .orange
         case .failed, .closed:
@@ -293,7 +298,9 @@ extension MainViewController: CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         print("💚 mqtt did connect ack: \(ack.description)")
         if ack == .accept {
-            mqtt.subscribe("/ios/topic-rzv/peer1", qos: .qos1)
+            let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+            let topicName = "/ios/\(phoneNumber!)"
+            mqtt.subscribe(topicName, qos: .qos1)
         }
     }
     

@@ -4,6 +4,7 @@ PODS:
   - CocoaMQTT (1.2.5):
     - CocoaAsyncSocket (~> 7.6.3)
   - GoogleWebRTC (1.1.29400)
+  - IQKeyboardManagerSwift (6.5.5)
   - netfox (1.19.0)
   - PKHUD (5.3.0)
   - PromiseKit (6.13.1):
@@ -15,15 +16,18 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
+  - SkyFloatingLabelTextField (3.8.0)
 
 DEPENDENCIES:
   - Alamofire
   - CocoaAsyncSocket
   - CocoaMQTT
   - GoogleWebRTC
+  - IQKeyboardManagerSwift
   - netfox
   - PKHUD
   - PromiseKit (~> 6.8)
+  - SkyFloatingLabelTextField (~> 3.0)
 
 SPEC REPOS:
   trunk:
@@ -31,19 +35,23 @@ SPEC REPOS:
     - CocoaAsyncSocket
     - CocoaMQTT
     - GoogleWebRTC
+    - IQKeyboardManagerSwift
     - netfox
     - PKHUD
     - PromiseKit
+    - SkyFloatingLabelTextField
 
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaMQTT: a61490ed3b328011c5d75169a77781983e2bb221
   GoogleWebRTC: cfb83bc346435a17fe06bb05f04ad826b858a7fb
+  IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   netfox: efeec1d23406df6cd605212f09a40957bb5654eb
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
 
-PODFILE CHECKSUM: 9b6ebbdadb1872c37d3366dc5aa49559fc179c7d
+PODFILE CHECKSUM: b65333843ee923d8e7439494fe5473ac7e54a0ff
 
 COCOAPODS: 1.8.4
