@@ -199,6 +199,16 @@ final class WebRTCClient: NSObject {
         let buffer = RTCDataBuffer(data: data, isBinary: true)
         self.remoteDataChannel?.sendData(buffer)
     }
+    
+    func endCall() {
+        self.peerConnection.close()
+        self.remoteDataChannel!.close()
+        self.localDataChannel!.close()
+    }
+    
+    func isRtcPeerConnectionAlive() -> Bool {
+        return self.peerConnection == nil
+    }
 }
 
 extension WebRTCClient: RTCPeerConnectionDelegate {
@@ -236,10 +246,10 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         debugPrint("peerConnection did remove candidate(s)")
     }
     
-    func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
-        debugPrint("peerConnection did open data channel")
-        self.remoteDataChannel = dataChannel
-    }
+//    func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
+//        debugPrint("peerConnection did open data channel")
+//        self.remoteDataChannel = dataChannel
+//    }
 }
 
 // MARK:- Audio control

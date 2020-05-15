@@ -23,15 +23,34 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var speakerButton: UIButton?
     @IBOutlet private weak var signalingStatusLabel: UILabel?
     @IBOutlet private weak var localSdpStatusLabel: UILabel?
-//    @IBOutlet private weak var localCandidatesLabel: UILabel?
     @IBOutlet private weak var remoteSdpStatusLabel: UILabel?
-//    @IBOutlet private weak var remoteCandidatesLabel: UILabel?
     @IBOutlet private weak var muteButton: UIButton?
     @IBOutlet private weak var webRTCStatusLabel: UILabel?
+    @IBOutlet weak var answerButton: UIButton!
     
     @IBOutlet weak var conversationOptionsStackView: UIStackView!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     var mqtt: CocoaMQTT!
+    
+    private var connectionState: RTCIceConnectionState = .new {
+        didSet {
+            DispatchQueue.main.async {
+                switch self.connectionState {
+                case .connected, .completed:
+                    self.conversationOptionsStackView.isHidden = false
+                case .closed, .disconnected, .failed:
+                    self.conversationOptionsStackView.isHidden = true
+                    self.remotePhoneNumber = nil
+                    self.hasRemoteSdp = false
+                    self.hasLocalSdp = false
+                case .count, .checking, .new:
+                    print("🧡 count, checking or new")
+                @unknown default: break
+                    
+                }
+            }
+        }
+    }
     
     private var signalingConnected: Bool = false {
         didSet {
@@ -56,29 +75,19 @@ class MainViewController: UIViewController {
         }
     }
     
-//    private var localCandidateCount: Int = 0 {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
-//            }
-//        }
-//    }
-    
     private var hasRemoteSdp: Bool = false {
         didSet {
             DispatchQueue.main.async {
                 self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
+                if self.hasRemoteSdp {
+                    self.answerButton.isHidden = false
+                } else {
+                    self.answerButton.isHidden = true
+                }
+                
             }
         }
     }
-    
-//    private var remoteCandidateCount: Int = 0 {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
-//            }
-//        }
-//    }
     
     private var speakerOn: Bool = false {
         didSet {
@@ -113,7 +122,7 @@ class MainViewController: UIViewController {
         self.hasRemoteSdp = false
         self.speakerOn = false
         self.webRTCStatusLabel?.text = "New"
-        self.conversationOptionsStackView.isHidden = false
+        self.conversationOptionsStackView.isHidden = true
         self.webRTCClient.delegate = self
 //        self.signalClient.delegate = self
 //        self.signalClient.connect()
@@ -145,12 +154,11 @@ class MainViewController: UIViewController {
         self.remotePhoneNumber = phoneNumber
         
         self.webRTCClient.offer { (sdp) in
-            
+
             self.hasLocalSdp = true
-            var sessionDescription = SessionDescription(from: sdp)
-            sessionDescription.srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+            let srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+            let sessionDescription = SessionDescription(from: sdp, srcPhoneNumber: srcPhoneNumber!)
             let message = Message.sdp(sessionDescription)
-            
             self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
 //            self.signalClient.send(sdp: sdp)
             
@@ -161,8 +169,8 @@ class MainViewController: UIViewController {
         
         self.webRTCClient.answer { (localSdp) in
             self.hasLocalSdp = true
-            var sessionDescription = wSessionDescription(from: localSdp)
-            sessionDescription.srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+            let srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+            let sessionDescription = SessionDescription(from: localSdp, srcPhoneNumber: srcPhoneNumber!)
             let message = Message.sdp(sessionDescription)
             self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
 //            self.signalClient.send(sdp: localSdp)
@@ -213,7 +221,6 @@ class MainViewController: UIViewController {
     
     private func encodeMessageAndPublishMqtt(message: Message, topic: String) {
         do {
-//            let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
             let encodedMessage = try JSONEncoder().encode(message)
             let sdpByteArr = [UInt8](encodedMessage)
             let cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: sdpByteArr)
@@ -228,6 +235,14 @@ class MainViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func didTapEndCallBtn(_ sender: UIButton) {
+        // TODO must modify end conne
+        self.webRTCClient.endCall()
+        self.remotePhoneNumber = nil
+        self.hasLocalSdp = false
+        self.hasRemoteSdp = false
+    }
+    
 }
 
 
@@ -235,8 +250,8 @@ extension MainViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
-        var iceCandidate = IceCandidate(from: candidate)
-        iceCandidate.srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+        let srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
+        let iceCandidate = IceCandidate(from: candidate, srcPhoneNumber: srcPhoneNumber!)
         let message = Message.candidate(iceCandidate)
         self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
 //        self.localCandidateCount += 1
@@ -246,6 +261,7 @@ extension MainViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
         let textColor: UIColor
+        self.connectionState = state
         switch state {
         case .connected, .completed:
             textColor = .green
@@ -326,11 +342,11 @@ extension MainViewController: CocoaMQTTDelegate {
         switch  decodedMessage {
         case .candidate(let iceCandidate):
             print("Received remote candidate")
-            self.remotePhoneNumber = iceCandidate.srcPhoneNumber!
+            self.remotePhoneNumber = iceCandidate.srcPhoneNumber
             self.webRTCClient.set(remoteCandidate: iceCandidate.rtcIceCandidate)
         case .sdp(let sessionDescription):
             print("Received remote sdp")
-            self.remotePhoneNumber = sessionDescription.srcPhoneNumber!
+            self.remotePhoneNumber = sessionDescription.srcPhoneNumber
             self.webRTCClient.set(remoteSdp: sessionDescription.rtcSessionDescription) { (error) in
                 self.hasRemoteSdp = true
             }

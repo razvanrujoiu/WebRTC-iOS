@@ -26,11 +26,12 @@ enum SdpType: String, Codable {
 struct SessionDescription: Codable {
     let sdp: String
     let type: SdpType
-    var srcPhoneNumber: String?
+    var srcPhoneNumber: String
     
-    init(from rtcSessionDescription: RTCSessionDescription) {
+    init(from rtcSessionDescription: RTCSessionDescription, srcPhoneNumber: String) {
         self.sdp = rtcSessionDescription.sdp
-        // TODO pass srcPhoneNumber in constructor
+        self.srcPhoneNumber = srcPhoneNumber
+        
         switch rtcSessionDescription.type {
         case .offer:    self.type = .offer
         case .prAnswer: self.type = .prAnswer
