@@ -10,5 +10,6 @@ target 'Liv3' do
     pod 'PKHUD'
     pod 'SkyFloatingLabelTextField', '~> 3.0'
     pod 'IQKeyboardManagerSwift'
+    pod 'CryptoSwift', '~> 1.0'
     pod 'CocoaAsyncSocket'
 end
