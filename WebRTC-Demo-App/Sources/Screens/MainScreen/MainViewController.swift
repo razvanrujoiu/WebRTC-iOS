@@ -12,11 +12,13 @@ import WebRTC
 import CocoaMQTT
 import CocoaAsyncSocket
 import CallKit
+import PKHUD
 
 class MainViewController: UIViewController {
 
+    private let config = Config.default
 //    private let signalClient: SignalingClient
-    private let webRTCClient: WebRTCClient
+    private var webRTCClient: WebRTCClient
     private var remotePhoneNumber: String?
     private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient)
     
@@ -39,12 +41,13 @@ class MainViewController: UIViewController {
                 case .connected, .completed:
                     self.conversationOptionsStackView.isHidden = false
                 case .closed, .disconnected, .failed:
+                    self.webRTCClient.endCall()
                     self.conversationOptionsStackView.isHidden = true
                     self.remotePhoneNumber = nil
                     self.hasRemoteSdp = false
                     self.hasLocalSdp = false
-                case .count, .checking, .new:
-                    print("🧡 count, checking or new")
+                case .checking, .new, .count:
+                    print("❤️ count, checking")
                 @unknown default: break
                     
                 }
@@ -144,17 +147,18 @@ class MainViewController: UIViewController {
         _ = mqtt!.connect()
     }
     
-
-    
     @IBAction private func offerDidTap(_ sender: UIButton) {
         
         guard let phoneNumber = phoneNumberTextField.text, RUtility.isValidPhone(phone: phoneNumber) else {
             return
         }
         self.remotePhoneNumber = phoneNumber
+        if !webRTCClient.isRtcPeerConnectionAlive() {
+            
+            self.webRTCClient = WebRTCClient(iceServers: self.config.webRTCIceServers)
+        }
         
         self.webRTCClient.offer { (sdp) in
-
             self.hasLocalSdp = true
             let srcPhoneNumber = UserDefaults.standard.string(forKey: "phoneNumber")
             let sessionDescription = SessionDescription(from: sdp, srcPhoneNumber: srcPhoneNumber!)
@@ -166,6 +170,10 @@ class MainViewController: UIViewController {
     }
     
     @IBAction private func answerDidTap(_ sender: UIButton) {
+        
+        if !webRTCClient.isRtcPeerConnectionAlive() {
+            self.webRTCClient = WebRTCClient(iceServers: self.config.webRTCIceServers)
+        }
         
         self.webRTCClient.answer { (localSdp) in
             self.hasLocalSdp = true
@@ -329,6 +337,10 @@ extension MainViewController: CocoaMQTTDelegate {
     
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
         print("💚 Did receive message: \(message.string!)")
+        
+        if !webRTCClient.isRtcPeerConnectionAlive() {
+            self.webRTCClient = WebRTCClient(iceServers: config.webRTCIceServers)
+        }
         
         let decodedMessage: Message
         let encodedMessage = message.string!.data(using: .utf8)
