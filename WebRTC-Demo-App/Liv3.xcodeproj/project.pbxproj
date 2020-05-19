@@ -25,6 +25,7 @@
 		798FBA472200F681009F525E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA462200F681009F525E /* MainViewController.xib */; };
 		798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA482200F9A9009F525E /* LaunchScreen.storyboard */; };
 		C4124C0EC165DC97E29263DE /* libPods-Liv3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7B7D3A8E5006EE48677A55 /* libPods-Liv3.a */; };
+		E316D94424745BE300FF31D8 /* CryptoUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E316D94324745BE300FF31D8 /* CryptoUtil.swift */; };
 		E3E10AF22468A200009A6CE6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E10AF12468A200009A6CE6 /* LoginController.swift */; };
 		E3E10AF42468A39F009A6CE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3E10AF32468A39F009A6CE6 /* Main.storyboard */; };
 		E3E794B5246CCE5A00F5C1AD /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E794B4246CCE5A00F5C1AD /* Utils.swift */; };
@@ -55,6 +56,7 @@
 		7A7B7D3A8E5006EE48677A55 /* libPods-Liv3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Liv3.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E3FBEEC17F90E8734E82EBE /* Pods-WebRTC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebRTC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WebRTC-Demo/Pods-WebRTC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		C087690C90F3F0A411348BEC /* Pods-Liv3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liv3.debug.xcconfig"; path = "Target Support Files/Pods-Liv3/Pods-Liv3.debug.xcconfig"; sourceTree = "<group>"; };
+		E316D94324745BE300FF31D8 /* CryptoUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoUtil.swift; sourceTree = "<group>"; };
 		E391A7B724443621003CB4CE /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
 		E3E10AF12468A200009A6CE6 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		E3E10AF32468A39F009A6CE6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E794B4246CCE5A00F5C1AD /* Utils.swift */,
+				E316D94324745BE300FF31D8 /* CryptoUtil.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
+				E316D94424745BE300FF31D8 /* CryptoUtil.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,

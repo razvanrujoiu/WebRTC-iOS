@@ -13,6 +13,7 @@ import CocoaMQTT
 import CocoaAsyncSocket
 import CallKit
 import PKHUD
+import CryptoSwift
 
 class MainViewController: UIViewController {
 
