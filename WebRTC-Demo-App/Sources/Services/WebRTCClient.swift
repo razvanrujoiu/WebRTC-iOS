@@ -207,15 +207,9 @@ final class WebRTCClient: NSObject {
         }
     }
     
-<<<<<<< Updated upstream
-//    func isRtcPeerConnectionAlive() -> Bool {
-//        return self.peerConnection == nil
-//    }
-=======
     func isRtcPeerConnectionAlive() -> Bool {
         return self.peerConnection != nil
     }
->>>>>>> Stashed changes
 }
 
 extension WebRTCClient: RTCPeerConnectionDelegate {
