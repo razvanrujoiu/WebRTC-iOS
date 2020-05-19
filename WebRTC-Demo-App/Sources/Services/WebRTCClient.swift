@@ -45,7 +45,7 @@ final class WebRTCClient: NSObject {
     
     required init(iceServers: [String]) {
         let config = RTCConfiguration()
-        config.iceServers = [RTCIceServer(urlStrings: iceServers)]
+        config.iceServers = [RTCIceServer(urlStrings: iceServers, username: "webrtc@live.com", credential: "muazkh")]
         
         // Unified plan is more superior than planB
         config.sdpSemantics = .unifiedPlan
@@ -206,9 +206,9 @@ final class WebRTCClient: NSObject {
         self.localDataChannel!.close()
     }
     
-    func isRtcPeerConnectionAlive() -> Bool {
-        return self.peerConnection == nil
-    }
+//    func isRtcPeerConnectionAlive() -> Bool {
+//        return self.peerConnection == nil
+//    }
 }
 
 extension WebRTCClient: RTCPeerConnectionDelegate {
@@ -246,10 +246,10 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         debugPrint("peerConnection did remove candidate(s)")
     }
     
-//    func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
-//        debugPrint("peerConnection did open data channel")
-//        self.remoteDataChannel = dataChannel
-//    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
+        debugPrint("peerConnection did open data channel")
+        self.remoteDataChannel = dataChannel
+    }
 }
 
 // MARK:- Audio control
