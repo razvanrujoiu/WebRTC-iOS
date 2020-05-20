@@ -23,7 +23,7 @@ DEPENDENCIES:
   - Alamofire
   - CocoaAsyncSocket
   - CocoaMQTT
-  - CryptoSwift (~> 1.0)
+  - CryptoSwift (~> 1.3.1)
   - GoogleWebRTC
   - IQKeyboardManagerSwift
   - netfox
@@ -56,6 +56,6 @@ SPEC CHECKSUMS:
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
 
-PODFILE CHECKSUM: b65db59aa072b24938f5556aeba3df9dc327ff3a
+PODFILE CHECKSUM: 9d27aaa54d32fb74c9624a44b1bcaa02dc868113
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

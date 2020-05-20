@@ -232,7 +232,8 @@ class MainViewController: UIViewController {
         do {
             let encodedMessage = try JSONEncoder().encode(message)
             let sdpByteArr = [UInt8](encodedMessage)
-            let cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: sdpByteArr)
+            let encryptedMessage = CryptoUtil.encryptAES128(inputContent: sdpByteArr, key: topic)
+            let cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: encryptedMessage)
             self.mqtt.publish(cocoaMqttMessage)
         } catch {
              debugPrint("Warning: Could not encode sdp: \(error)")
@@ -329,7 +330,7 @@ extension MainViewController: CocoaMQTTDelegate {
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
         
-        print("💚 Did publish message: \(message.string!)")
+//        print("💚 Did publish message: \(message.string!)")
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
@@ -337,16 +338,20 @@ extension MainViewController: CocoaMQTTDelegate {
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-        print("💚 Did receive message: \(message.string!)")
+//        print("💚 Did receive message: \(message.string!)")
         
         if !webRTCClient.isRtcPeerConnectionAlive() {
             self.webRTCClient = WebRTCClient(iceServers: config.webRTCIceServers)
         }
         
+        let decryptionKey = UserDefaults.standard.string(forKey: "phoneNumber")
+        let decryptedMessage =  CryptoUtil.decryptAES128(inputContent: message.payload, key: "/\(decryptionKey!)")
+        
         let decodedMessage: Message
-        let encodedMessage = message.string!.data(using: .utf8)
+        let encodedMessage = Data(bytes: decryptedMessage, count: decryptedMessage.count)
+//        let encodedMessage = message.string!.data(using: .utf8)
         do {
-            decodedMessage = try JSONDecoder().decode(Message.self, from: encodedMessage!)
+            decodedMessage = try JSONDecoder().decode(Message.self, from: encodedMessage)
         } catch {
             debugPrint("❤️ Could not decode incoming message: \(error)")
             return

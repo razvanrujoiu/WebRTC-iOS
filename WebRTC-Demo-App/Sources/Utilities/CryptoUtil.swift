@@ -42,8 +42,4 @@ public class CryptoUtil {
         return aesDecrypted
         
     }
-    
-//    public static func getAesDecryptionKey() -> [UInt8] {
-//       // TODO
-//    }
 }
