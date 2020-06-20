@@ -232,8 +232,14 @@ class MainViewController: UIViewController {
         do {
             let encodedMessage = try JSONEncoder().encode(message)
             let sdpByteArr = [UInt8](encodedMessage)
-            let encryptedMessage = CryptoUtil.encryptAES128(inputContent: sdpByteArr, key: topic)
-            let cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: encryptedMessage)
+            let cocoaMqttMessage: CocoaMQTTMessage!
+            if RzvConstants.useEncryption {
+                let encryptedMessage = CryptoUtil.encryptAES128(inputContent: sdpByteArr, key: topic)
+                cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: encryptedMessage)
+            } else {
+                cocoaMqttMessage = CocoaMQTTMessage(topic: topic, payload: sdpByteArr)
+            }
+            
             self.mqtt.publish(cocoaMqttMessage)
         } catch {
              debugPrint("Warning: Could not encode sdp: \(error)")
@@ -343,13 +349,15 @@ extension MainViewController: CocoaMQTTDelegate {
         if !webRTCClient.isRtcPeerConnectionAlive() {
             self.webRTCClient = WebRTCClient(iceServers: config.webRTCIceServers)
         }
-        
-        let decryptionKey = UserDefaults.standard.string(forKey: "phoneNumber")
-        let decryptedMessage =  CryptoUtil.decryptAES128(inputContent: message.payload, key: "/\(decryptionKey!)")
-        
+        let encodedMessage: Data!
         let decodedMessage: Message
-        let encodedMessage = Data(bytes: decryptedMessage, count: decryptedMessage.count)
-//        let encodedMessage = message.string!.data(using: .utf8)
+        if RzvConstants.useEncryption {
+            let decryptionKey = UserDefaults.standard.string(forKey: "phoneNumber")
+            let decryptedMessage =  CryptoUtil.decryptAES128(inputContent: message.payload, key: "/\(decryptionKey!)")
+            encodedMessage = Data(bytes: decryptedMessage, count: decryptedMessage.count)
+        } else {
+            encodedMessage = message.string!.data(using: .utf8)
+        }
         do {
             decodedMessage = try JSONDecoder().decode(Message.self, from: encodedMessage)
         } catch {
