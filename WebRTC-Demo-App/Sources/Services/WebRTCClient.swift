@@ -53,7 +53,8 @@ final class WebRTCClient: NSObject {
         // gatherContinually will let WebRTC to listen to any network changes and send any new candidates to the other client
         config.continualGatheringPolicy = .gatherContinually
         
-        let constraints = RTCMediaConstraints(mandatoryConstraints: nil,
+        let constraints = RTCMediaConstraints(mandatoryConstraints: [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
+                                                                     kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueTrue] ,
                                               optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
         self.peerConnection = WebRTCClient.factory.peerConnection(with: config, constraints: constraints, delegate: nil)
         
@@ -99,8 +100,6 @@ final class WebRTCClient: NSObject {
     func set(remoteCandidate: RTCIceCandidate) {
         self.peerConnection!.add(remoteCandidate)
     }
-    
-    
     
     // MARK: Media
     func startCaptureLocalVideo(renderer: RTCVideoRenderer, position: AVCaptureDevice.Position) {
@@ -168,7 +167,7 @@ final class WebRTCClient: NSObject {
     private func createAudioTrack() -> RTCAudioTrack {
         let audioConstrains = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
         let audioSource = WebRTCClient.factory.audioSource(with: audioConstrains)
-        let audioTrack = WebRTCClient.factory.audioTrack(with: audioSource, trackId: "audio0")
+        let audioTrack = WebRTCClient.factory.audioTrack(with: audioSource, trackId: "ARDAMSa0")
         return audioTrack
     }
     
@@ -181,7 +180,7 @@ final class WebRTCClient: NSObject {
         self.videoCapturer = RTCCameraVideoCapturer(delegate: videoSource)
         #endif
         
-        let videoTrack = WebRTCClient.factory.videoTrack(with: videoSource, trackId: "video0")
+        let videoTrack = WebRTCClient.factory.videoTrack(with: videoSource, trackId: "ARDAMSv0")
         return videoTrack
     }
     
@@ -201,6 +200,10 @@ final class WebRTCClient: NSObject {
     }
     
     func endCall() {
+//        self.remoteVideoTrack = nil
+//        self.remoteDataChannel = nil
+//        self.localDataChannel = nil
+//        self.localVideoTrack = nil
         if peerConnection != nil {
             self.peerConnection!.close()
             self.peerConnection = nil

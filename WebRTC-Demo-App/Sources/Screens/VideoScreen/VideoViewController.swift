@@ -27,23 +27,27 @@ class VideoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupVideoRendering(position: .front)
+        setupVideoRendering()
     }
     
-    private func setupVideoRendering(position: AVCaptureDevice.Position) {
+    private func setupVideoRendering() {
         #if arch(arm64)
         // Using metal (arm64 only)
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCMTLVideoView(frame: self.view.frame)
+        localRenderer.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        remoteRenderer.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         localRenderer.videoContentMode = .scaleAspectFill
         remoteRenderer.videoContentMode = .scaleAspectFill
         #else
         // Using OpenGLES for the rest
         let localRenderer = RTCEAGLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCEAGLVideoView(frame: self.view.frame)
+        localRenderer.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        remoteRenderer.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         #endif
         
-        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer, position: position)
+        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer, position: AVCaptureDevice.Position.front)
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
         
         // TODO find a way to refactor this, the views are stacking
@@ -56,6 +60,7 @@ class VideoViewController: UIViewController {
         self.view.sendSubviewToBack(remoteRenderer)
         
     }
+    
     
     private func embedView(_ view: UIView, into containerView: UIView) {
         
@@ -79,12 +84,12 @@ class VideoViewController: UIViewController {
     
     
     @IBAction func rotateCamera(_ sender: UIButton) {
-        if self.isFrontCamera {
-            self.setupVideoRendering(position: .back)
-            isFrontCamera = false
-        } else {
-            self.setupVideoRendering(position: .front)
-            isFrontCamera = true
-        }
+//        if self.isFrontCamera {
+//            self.webRTCClient.startCaptureLocalVideo(renderer: <#T##RTCVideoRenderer#>, position: <#T##AVCaptureDevice.Position#>)
+//            isFrontCamera = false
+//        } else {
+//            self.setupVideoRendering(position: .front)
+//            isFrontCamera = true
+//        }
     }
 }

@@ -128,8 +128,6 @@ class MainViewController: UIViewController {
         self.webRTCStatusLabel?.text = "New"
         self.conversationOptionsStackView.isHidden = true
         self.webRTCClient.delegate = self
-//        self.signalClient.delegate = self
-//        self.signalClient.connect()
         self.setupMqtt()
     }
     
@@ -165,7 +163,6 @@ class MainViewController: UIViewController {
             let sessionDescription = SessionDescription(from: sdp, srcPhoneNumber: srcPhoneNumber!)
             let message = Message.sdp(sessionDescription)
             self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
-//            self.signalClient.send(sdp: sdp)
             
         }
     }
@@ -182,7 +179,6 @@ class MainViewController: UIViewController {
             let sessionDescription = SessionDescription(from: localSdp, srcPhoneNumber: srcPhoneNumber!)
             let message = Message.sdp(sessionDescription)
             self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
-//            self.signalClient.send(sdp: localSdp)
         }
     }
     
@@ -270,9 +266,6 @@ extension MainViewController: WebRTCClientDelegate {
         let iceCandidate = IceCandidate(from: candidate, srcPhoneNumber: srcPhoneNumber!)
         let message = Message.candidate(iceCandidate)
         self.encodeMessageAndPublishMqtt(message: message, topic: "/\(self.remotePhoneNumber!)")
-//        self.localCandidateCount += 1
-//        self.signalClient.send(candidate: candidate)
-        
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
@@ -390,25 +383,3 @@ extension MainViewController: CocoaMQTTDelegate {
     
 }
 
-//extension MainViewController: SignalClientDelegate {
-//    func signalClientDidConnect(_ signalClient: SignalingClient) {
-//        self.signalingConnected = true
-//    }
-//
-//    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
-//        self.signalingConnected = false
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
-//        print("Received remote sdp")
-//        self.webRTCClient.set(remoteSdp: sdp) { (error) in
-//            self.hasRemoteSdp = true
-//        }
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
-//        print("Received remote candidate")
-////        self.remoteCandidateCount += 1
-//        self.webRTCClient.set(remoteCandidate: candidate)
-//    }
-//}
